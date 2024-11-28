@@ -1,0 +1,54 @@
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 20px 20px;
+}
+
+.pagination button {
+  width: 40px;
+  height: 40px;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: transparent;
+  color: turquoise;
+  background-color: #0a131c;
+  border-color: black;
+}
+
+.pagination button:hover {
+  color: turquoise;
+  background-color: #112231;
+  transition: all 0.3s ease;
+}
+
+.pagination button.active {
+  font-weight: 700;
+  border-color: black;
+  background: orange;
+  color: black;
+}
+
+.pre-next-btn {
+  font-family: inherit;
+  font-weight: 600;
+  margin: 0 10px;
+  padding: 6px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  color: #010303;
+  background-color: orange;
+  border-color: black;
+}
+
+.pre-next-btn.disabled {
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed;
+}
