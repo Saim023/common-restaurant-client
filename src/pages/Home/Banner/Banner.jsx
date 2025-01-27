@@ -8,28 +8,28 @@ import sliderImg5 from "../../../assets/home/05.png";
 import sliderImg6 from "../../../assets/home/06.png";
 
 const Banner = () => {
-	return (
-		<Carousel autoPlay infiniteLoop showThumbs={true} showStatus={true}>
-			<div>
-				<img src={sliderImg1} alt="Slider Image 1" />
-			</div>
-			<div>
-				<img src={sliderImg2} alt="Slider Image 2" />
-			</div>
-			<div>
-				<img src={sliderImg3} alt="Slider Image 3" />
-			</div>
-			<div>
-				<img src={sliderImg4} alt="Slider Image 4" />
-			</div>
-			<div>
-				<img src={sliderImg5} alt="Slider Image 5" />
-			</div>
-			<div>
-				<img src={sliderImg6} alt="Slider Image 6" />
-			</div>
-		</Carousel>
-	);
+  return (
+    <Carousel autoPlay infiniteLoop showThumbs={true} showStatus={true}>
+      <div>
+        <img src={sliderImg1} alt="Slider Image 1" />
+      </div>
+      <div>
+        <img src={sliderImg2} alt="Slider Image 2" />
+      </div>
+      <div>
+        <img src={sliderImg3} alt="Slider Image 3" />
+      </div>
+      <div>
+        <img src={sliderImg4} alt="Slider Image 4" />
+      </div>
+      <div>
+        <img src={sliderImg5} alt="Slider Image 5" />
+      </div>
+      <div>
+        <img src={sliderImg6} alt="Slider Image 6" />
+      </div>
+    </Carousel>
+  );
 };
 
 export default Banner;

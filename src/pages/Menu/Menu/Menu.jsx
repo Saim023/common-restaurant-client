@@ -11,38 +11,45 @@ import SectionTitle from "./../../../Components/SectionTitle/SectionTitle";
 import MenuCategory from "./../MenuCategory/MenuCategory";
 
 const Menu = () => {
-	const [menu] = useMenu();
-	const offered = menu.filter((item) => item.category === "offered");
-	const desserts = menu.filter((item) => item.category === "dessert");
-	const pizza = menu.filter((item) => item.category === "pizza");
-	const salad = menu.filter((item) => item.category === "salad");
-	const soup = menu.filter((item) => item.category === "soup");
-	return (
-		<div>
-			<Helmet>
-				<title>Menu</title>
-			</Helmet>
+  const [menu] = useMenu();
+  const offered = menu.filter((item) => item.category === "offered");
+  const desserts = menu.filter((item) => item.category === "dessert");
+  const pizza = menu.filter((item) => item.category === "pizza");
+  const salad = menu.filter((item) => item.category === "salad");
+  const soup = menu.filter((item) => item.category === "soup");
+  return (
+    <div>
+      <Helmet>
+        <title>Menu</title>
+      </Helmet>
 
-			{/* Main menu */}
-			<Cover img={menuImg} title="Our Menu"></Cover>
+      {/* Main menu */}
+      <Cover img={menuImg} title="Our Menu"></Cover>
 
-			{/* Offered items */}
-			<SectionTitle subHeading="Don't miss" heading="Today's offer"></SectionTitle>
-			<MenuCategory items={offered}></MenuCategory>
+      {/* Offered items */}
+      <SectionTitle
+        subHeading="Don't miss"
+        heading="Today's offer"
+      ></SectionTitle>
+      <MenuCategory items={offered}></MenuCategory>
 
-			{/* Dessert items */}
-			<MenuCategory items={desserts} title="desserts" img={dessertImg}></MenuCategory>
+      {/* Dessert items */}
+      <MenuCategory
+        items={desserts}
+        title="desserts"
+        img={dessertImg}
+      ></MenuCategory>
 
-			{/* Pizza items */}
-			<MenuCategory items={pizza} title="pizza" img={pizzaImg}></MenuCategory>
+      {/* Pizza items */}
+      <MenuCategory items={pizza} title="pizza" img={pizzaImg}></MenuCategory>
 
-			{/* Salad items */}
-			<MenuCategory items={salad} title="salad" img={saladImg}></MenuCategory>
+      {/* Salad items */}
+      <MenuCategory items={salad} title="salad" img={saladImg}></MenuCategory>
 
-			{/* Soup items */}
-			<MenuCategory items={soup} title="soup" img={soupImg}></MenuCategory>
-		</div>
-	);
+      {/* Soup items */}
+      <MenuCategory items={soup} title="soup" img={soupImg}></MenuCategory>
+    </div>
+  );
 };
 
 export default Menu;

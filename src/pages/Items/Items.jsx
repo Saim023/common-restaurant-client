@@ -15,7 +15,6 @@ const TotalItems = () => {
   }, []);
 
   const totalPages = Math.ceil(items.length / itemsPerPage);
-  console.log(totalPages);
 
   const lastItemIndex = currentPage * itemsPerPage;
   const firstItemIndex = lastItemIndex - itemsPerPage;
@@ -39,22 +38,28 @@ const TotalItems = () => {
               <h2 className="card-title">{item.name}</h2>
               <p>{item.recipe}</p>
               <div className="card-actions justify-end">
-                <button className="btn btn-outline mt-4 border-0 border-b-4 bg-slate-100 text-orange-400 border-orange-400 hover:bg-slate-200 hover:text-orange-600 hover:border-orange-600 ">
+                <buttons className="btn btn-outline mt-4 border-0 border-b-4 bg-slate-100 text-orange-400 border-orange-400 hover:bg-slate-200 hover:text-orange-600 hover:border-orange-600 ">
                   Add to Cart
-                </button>
+                </buttons>
               </div>
             </div>
           </div>
         ))}
       </div>
       <div>
-        <Pagination
-          totalItems={items.length}
-          itemsPerPage={itemsPerPage}
-          setCurrentPage={setCurrentPage}
-          currentPage={currentPage}
-          totalPages={totalPages}
-        ></Pagination>
+        {currentItem.length ? (
+          <>
+            <Pagination
+              totalItems={items.length}
+              itemsPerPage={itemsPerPage}
+              setCurrentPage={setCurrentPage}
+              currentPage={currentPage}
+              totalPages={totalPages}
+            ></Pagination>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     </div>
   );
