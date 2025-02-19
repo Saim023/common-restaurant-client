@@ -4,11 +4,15 @@ import { FaTrashAlt } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [cart, refetch] = useCart();
   const axiosSecure = useAxiosSecure();
-  const totalPrice = cart.reduce((total, item) => total + item.price, 0);
+  const totalPrice = cart.reduce(
+    (total, item) => total + (Number(item.price) || 0),
+    0
+  );
 
   const handleDeleteCart = (id) => {
     Swal.fire({
@@ -48,18 +52,33 @@ const Cart = () => {
       <div className="overflow-x-auto mt-12">
         <div className="flex items-center justify-between uppercase font-bold font-[Cinzel-decorative] mb-4">
           <h1>Total Orders: {cart?.length}</h1>
-          <h1>Total Price: ${totalPrice.toFixed(2)}</h1>
-          <button
-            className={`btn btn-sm text-white uppercase bg-[#D1A054] hover:bg-[#efad4b] hover:opacity-85 ${
-              cart.length > 6 ? "mr-4" : ""
-            }`}
-          >
-            Pay
-          </button>
+          <h1>
+            Total Price: ${isNaN(totalPrice) ? "0.00" : totalPrice.toFixed(2)}
+          </h1>
+
+          {cart?.length ? (
+            <Link to="/dashboard/payment">
+              <button
+                className={`btn btn-sm text-white uppercase bg-[#D1A054] hover:bg-[#efad4b] hover:opacity-85 ${
+                  cart.length > 6 ? "mr-4" : ""
+                }`}
+              >
+                Pay
+              </button>
+            </Link>
+          ) : (
+            <button
+              disabled
+              className={`btn btn-sm text-white uppercase bg-[#D1A054] hover:bg-[#efad4b] hover:opacity-85 ${
+                cart.length > 6 ? "mr-4" : ""
+              }`}
+            >
+              Pay
+            </button>
+          )}
         </div>
         <div className="overflow-y-auto max-h-[500px] ">
           <table className="table">
-            {/* head */}
             <thead>
               <tr className="bg-[#D1A054] font-[Cinzel-decorative] uppercase font-bold text-white sticky top-0 z-10">
                 <th>
@@ -87,8 +106,11 @@ const Cart = () => {
                   <td>{item.name}</td>
                   <td>${item.price}</td>
                   <th>
-                    <button onClick={() => handleDeleteCart(item._id)}>
-                      <FaTrashAlt className="text-[#D1A054] hover:text-[#efad4b]"></FaTrashAlt>
+                    <button
+                      className="btn btn-ghost btn-sm text-white uppercase bg-[#D1A054] hover:bg-[#efad4b] hover:opacity-85"
+                      onClick={() => handleDeleteCart(item._id)}
+                    >
+                      <FaTrashAlt></FaTrashAlt>
                     </button>
                   </th>
                 </tr>

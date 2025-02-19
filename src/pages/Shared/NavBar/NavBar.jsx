@@ -5,11 +5,13 @@ import Swal from "sweetalert2";
 import { FaShoppingCart } from "react-icons/fa";
 import useCart from "../../../hooks/useCart";
 import Modal from "../../../Components/CustomModal/Modal";
+import useAdmin from "../../../hooks/useAdmin";
 
 const NavBar = () => {
   const { user, logOut } = useContext(AuthContext);
+  const [isAdmin] = useAdmin();
   const [cart] = useCart();
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
 
   const handleLogout = () => {
     logOut()
@@ -49,9 +51,16 @@ const NavBar = () => {
       <li>
         <Link to="/items">Items</Link>
       </li>
-      <li>
-        <Link to="/secret">Secret</Link>
-      </li>
+      {user && isAdmin && (
+        <li>
+          <Link to="/dashboard/admin-home">Dashboard</Link>
+        </li>
+      )}
+      {user && !isAdmin && (
+        <li>
+          <Link to="/dashboard/user-home">Dashboard</Link>
+        </li>
+      )}
     </>
   );
 
@@ -103,7 +112,7 @@ const NavBar = () => {
             <>
               <div className="avatar mr-3">
                 <div
-                  onClick={() => setIsModalOpen(!isModalOpen)}
+                  onClick={() => setOpenModal(!openModal)}
                   className="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2 hover:cursor-pointer ml-2"
                 >
                   <img src={user?.photoURL} />
@@ -114,10 +123,7 @@ const NavBar = () => {
               </button>
 
               <div className="">
-                <Modal
-                  isOpen={isModalOpen}
-                  onClose={() => setIsModalOpen(false)}
-                >
+                <Modal isOpen={openModal}>
                   <img
                     className="w-full h-48"
                     src={user?.photoURL}

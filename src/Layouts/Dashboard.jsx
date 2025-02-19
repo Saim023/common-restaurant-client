@@ -23,9 +23,11 @@ import { TfiMenuAlt } from "react-icons/tfi";
 import { Outlet } from "react-router";
 import { NavLink } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
+import useCart from "../hooks/useCart";
 
 const Dashboard = () => {
   const [isAdmin] = useAdmin();
+  const [cart] = useCart();
 
   return (
     <div className="flex">
@@ -75,15 +77,15 @@ const Dashboard = () => {
           ) : (
             <>
               <li>
-                <NavLink to="/dashboard/home">
+                <NavLink to="/dashboard/user-home">
                   <IoHomeOutline></IoHomeOutline>
                   User Home
                 </NavLink>
               </li>
               <li>
-                <NavLink to="/dashboard/my-cart">
+                <NavLink to="/dashboard/cart">
                   <IoCartOutline></IoCartOutline>
-                  My Cart
+                  My Cart ({cart.length})
                 </NavLink>
               </li>
               <li>

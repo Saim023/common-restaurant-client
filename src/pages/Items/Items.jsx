@@ -36,7 +36,7 @@ const TotalItems = () => {
             </p>
             <div className="card-body flex flex-col items-center justify-center">
               <h2 className="card-title">{item.name}</h2>
-              <p>{item.recipe}</p>
+              <p className="line-clamp-2">{item.recipe}</p>
               <div className="card-actions justify-end">
                 <buttons className="btn btn-outline mt-4 border-0 border-b-4 bg-slate-100 text-orange-400 border-orange-400 hover:bg-slate-200 hover:text-orange-600 hover:border-orange-600 ">
                   Add to Cart

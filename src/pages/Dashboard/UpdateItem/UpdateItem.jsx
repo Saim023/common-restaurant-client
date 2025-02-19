@@ -1,18 +1,22 @@
 import React from "react";
-import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
-import { useForm } from "react-hook-form";
-import { FaUtensils } from "react-icons/fa";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import SectionTitle from "../../../Components/SectionTitle/SectionTitle";
+import { FaUtensils } from "react-icons/fa";
+import { useLoaderData } from "react-router";
+import { useQuery } from "@tanstack/react-query";
 
 const image_hosting_key = import.meta.env.VITE_image_hosting_key;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 
-const AddItems = () => {
+const UpdateItem = () => {
   const axiosPublic = useAxiosPublic();
   const axiosSecure = useAxiosSecure();
   const { register, handleSubmit, reset } = useForm();
+
+  const { name, recipe, category, price, image, _id } = useLoaderData();
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -30,17 +34,17 @@ const AddItems = () => {
         recipe: data.recipe,
         image: res.data.data.display_url,
         category: data.category,
-        price: parseFloat(parseFloat(data.price).toFixed(2)),
+        price: data.price,
       };
 
-      const menuRes = await axiosSecure.post("/menu", menuItem);
+      const menuRes = await axiosSecure.patch(`/menu/${_id}`, menuItem);
       console.log(menuRes.data);
-      if (menuRes.data.insertedId) {
+      if (menuRes.data.modifiedCount > 0) {
         reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
-          title: `${data.name} added successfully`,
+          title: `${data.name} updated successfully`,
           showConfirmButton: false,
           timer: 1500,
         });
@@ -49,7 +53,10 @@ const AddItems = () => {
   };
   return (
     <div>
-      <SectionTitle heading="Add Items" subHeading="What's New?"></SectionTitle>
+      <SectionTitle
+        heading="Update Item"
+        subHeading="What's New?"
+      ></SectionTitle>
       <div className="w-[800px] mt-8 mb-8">
         <form className=" bg-[#F3F3F3] p-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="mb-6">
@@ -62,6 +69,7 @@ const AddItems = () => {
             <input
               type="text"
               placeholder="Recipe name"
+              defaultValue={name}
               className="input input-bordered w-full"
               {...register("name", { required: true })}
             />
@@ -77,6 +85,7 @@ const AddItems = () => {
               </label>
               <select
                 className="select select-bordered w-full"
+                defaultValue={category}
                 {...register("category", { required: true })}
               >
                 <option value="salad">Salad</option>
@@ -96,6 +105,7 @@ const AddItems = () => {
               <input
                 type="text"
                 placeholder="Price"
+                defaultValue={price}
                 className="input input-bordered w-full"
                 {...register("price", { required: true })}
               />
@@ -110,6 +120,7 @@ const AddItems = () => {
             </label>
             <textarea
               placeholder="Recipe details"
+              defaultValue={recipe}
               className="textarea textarea-bordered textarea-lg w-full"
               {...register("recipe", { required: true })}
             ></textarea>
@@ -118,13 +129,13 @@ const AddItems = () => {
               accept="image/*"
               {...register("image", { required: true })}
               className="mt-3 file:bg-[#eae5e5] file:text-slate-800
-            file:mr-5 file:py-2 file:px-4 file:border-0
-            hover:file:cursor-pointer file:hover:bg-[#dbd6d6]
-            "
+        file:mr-5 file:py-2 file:px-4 file:border-0
+        hover:file:cursor-pointer file:hover:bg-[#dbd6d6]
+        "
             />
           </div>
           <button className="btn text-white uppercase bg-[#D1A054] hover:bg-[#efad4b] hover:opacity-85">
-            Add Item <FaUtensils></FaUtensils>
+            Update Item <FaUtensils></FaUtensils>
           </button>
         </form>
       </div>
@@ -132,4 +143,4 @@ const AddItems = () => {
   );
 };
 
-export default AddItems;
+export default UpdateItem;

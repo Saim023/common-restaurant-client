@@ -66,7 +66,7 @@ const FoodCard = ({ item }) => {
       </p>
       <div className="card-body flex flex-col items-center justify-center">
         <h2 className="card-title">{name}</h2>
-        <p>{recipe}</p>
+        <p className="line-clamp-2">{recipe}</p>
         <div className="card-actions justify-end">
           <button
             onClick={() => handleAddToCart(item)}
